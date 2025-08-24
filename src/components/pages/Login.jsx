@@ -5,6 +5,10 @@ import { MdPhoneAndroid } from "react-icons/md";
 import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
 import { FaArrowLeft } from "react-icons/fa";
 
+
+
+
+
 export default function Login() {
   const navigate = useNavigate(); // ✅ Initialize navigate
   const [tab, setTab] = useState("phone");
@@ -15,6 +19,8 @@ export default function Login() {
 
   const from = location.state?.from?.pathname || "/";
 
+  const API_URL = import.meta.env.VITE_API_BASE_URL
+
 // State for welcome notification
   const [showWelcome, setShowWelcome] = useState(false);
 
@@ -24,7 +30,7 @@ export default function Login() {
 
     if (tab === "email") {
       try {
-        const res = await fetch("http://localhost:1000/api/users/login", {
+        const res = await fetch(`${API_URL}/api/users/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
