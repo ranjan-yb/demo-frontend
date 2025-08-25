@@ -5,6 +5,7 @@ const TILE_COUNT = 25;
 
 const Mine = () => {
   const token = localStorage.getItem("token");
+     const API_URL = import.meta.env.VITE_API_BASE_URL
 
   const { balance, loading, error, refetch } = useWalletBalance();
 
@@ -31,7 +32,7 @@ const Mine = () => {
     // if (!gameStarted || loss || clickedTiles.length === 0) return;
 
     try {
-      const res = await fetch("http://localhost:1000/api/mine/cashout", {
+      const res = await fetch(`${API_URL}/api/mine/cashout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // ✅ YOU NEED THIS
@@ -80,7 +81,7 @@ const Mine = () => {
     try {
       const nextMultiplier = (1 + mines * 0.05).toFixed(2);
 
-      const res = await fetch("http://localhost:1000/api/mine/bet", {
+      const res = await fetch(`${API_URL}/api/mine/bet`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -156,7 +157,7 @@ const Mine = () => {
 
   const sendEachBoxButtonValue = async (btnValue) => {
   try {
-    const res = await fetch("http://localhost:1000/api/mine/click", {
+    const res = await fetch(`${API_URL}/api/mine/click`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -213,7 +214,7 @@ const Mine = () => {
 
   // CASHOUT BUTTON
   const Cashout = () => {
-    fetch("http://localhost:1000/api/mine/clearbet", {
+    fetch(`${API_URL}/api/mine/clearbet`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
