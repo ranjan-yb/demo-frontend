@@ -14,10 +14,12 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [invite, setInvite] = useState("");
 
+   const API_URL = import.meta.env.VITE_API_BASE_URL
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:1000/api/users/register", {
+    const res = await fetch(`${API_URL}/api/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
