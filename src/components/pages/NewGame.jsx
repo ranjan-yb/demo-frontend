@@ -6,7 +6,7 @@ import Amount from "../pages/Amount";
 import useWalletBalance from "../hooks/useWalletBalance"; // ✅ adjust path if needed
 
 function Lottery() {
-  // const API_URL = import.meta.env.VITE_REACT_APP_API_URL;
+     const API_URL = import.meta.env.VITE_API_BASE_URL
 
   // WALLET
   const { balance, loading, error, refetch } = useWalletBalance();
@@ -73,7 +73,7 @@ function Lottery() {
   // COUNTDOWN FROM BACKEND
   useEffect(() => {
     const interval = setInterval(() => {
-      fetch(`http://localhost:1000/api/users/time`)
+      fetch(`${API_URL}/api/users/time`)
         .then((res) => res.json())
         .then((data) => {
           setTimeLeft(data.timeLeft); // ← controlled by server
@@ -158,7 +158,7 @@ function Lottery() {
     }
 
     try {
-      const res = await fetch("http://localhost:1000/api/users/bet", {
+      const res = await fetch(`${API_URL}/api/users/bet`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -200,7 +200,7 @@ function Lottery() {
     console.log("📤 Sending EMPTY bet:", payload);
 
     try {
-      const res = await fetch("http://localhost:1000/api/users/play", {
+      const res = await fetch(`${API_URL}/api/users/play`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -229,7 +229,7 @@ function Lottery() {
     if (!betPlacedRef.current || !lastPayload.current) return;
 
     try {
-      const res = await fetch("http://localhost:1000/api/users/play", {
+      const res = await fetch(`${API_URL}/api/users/play`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -305,7 +305,7 @@ function Lottery() {
   // RESET GAME BACKEND
   const resetGameStateBackend = async () => {
     try {
-      const res = await fetch(`http://localhost:1000/api/users/reset`, {
+      const res = await fetch(`${API_URL}/api/users/reset`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -328,7 +328,7 @@ function Lottery() {
   const fetchGameHistory = async (page = 1) => {
     try {
       const res = await fetch(
-        `http://localhost:1000/api/users/history?page=${page}`
+        `${API_URL}/api/users/history?page=${page}`
       );
       if (!res.ok) throw new Error(`Server responded with ${res.status}`);
 
